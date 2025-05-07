@@ -2,7 +2,7 @@
 
 ## Endpoints
 
-### POST `/user/register`
+### POST `/user/register` Endpoint
 
 This endpoint is used to register a new user.
 
