@@ -68,3 +68,57 @@ The request body must be sent in JSON format and include the following fields:
   ]
 }
 ```
+
+### POST `/user/login` 
+
+This endpoint is used to log in an existing user.
+
+#### Request Body
+
+The request body must be sent in JSON format and include the following fields:
+
+| Field               | Type   | Required | Description                                   |
+|---------------------|--------|----------|-----------------------------------------------|
+| `email`             | String | Yes      | The email address of the user (must be valid).|
+| `password`          | String | Yes      | The password for the user (min 6 characters). |
+
+#### Example Request Body
+
+```json
+{
+  "email": "johndoe@example.com",
+  "password": "password123"
+}
+```
+
+### Responses
+
+| Status Code |	Description |
+|-------------|-------------|
+| `200` |	User successfully logged in. Returns a JSON object with a token and user. |
+| `400` |	Validation error. Returns a JSON object with an array of validation errors. |
+| `401`	| Invalid email or password. |
+| `500`	| Internal server error. |
+
+### Success Response
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "_id": "64f1c2e5b5d6c2a1b8e4f123",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "johndoe@example.com"
+  }
+}
+```
+### Example Error Response
+
+```json
+{
+  "message": "Invalid email or password"
+}
+```
