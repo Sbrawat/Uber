@@ -1,0 +1,70 @@
+# Backend API Documentation
+
+## Endpoints
+
+### POST `/user/register`
+
+This endpoint is used to register a new user.
+
+#### Request Body
+
+The request body must be sent in JSON format and include the following fields:
+
+| Field               | Type   | Required | Description                                   |
+|---------------------|--------|----------|-----------------------------------------------|
+| `fullname.firstname`| String | Yes      | The first name of the user (min 3 characters).|
+| `fullname.lastname` | String | No       | The last name of the user (min 3 characters). |
+| `email`             | String | Yes      | The email address of the user (must be valid).|
+| `password`          | String | Yes      | The password for the user (min 6 characters). |
+
+#### Example Request Body
+
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "johndoe@example.com",
+  "password": "password123"
+}
+```
+# Responses
+
+
+| Status Code |	Description |
+|-------------|-------------|
+| `201` |	User successfully registered. Returns a JSON object with a token and user. |
+| `400` |	Validation error. Returns a JSON object with an array of validation errors. |
+| `500`	| Internal server error. |
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "_id": "64f1c2e5b5d6c2a1b8e4f123",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "johndoe@example.com"
+  }
+}
+```
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid Email",
+      "param": "email",
+      "location": "body"
+    },
+    {
+      "msg": "First name must be at least 3 characters long",
+      "param": "fullname.firstname",
+      "location": "body"
+    }
+  ]
+}
+```
