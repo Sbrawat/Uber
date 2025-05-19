@@ -122,3 +122,61 @@ The request body must be sent in JSON format and include the following fields:
   "message": "Invalid email or password"
 }
 ```
+### GET `/user/profile`
+
+This endpoint is used to retrieve the authenticated user's profile information.
+
+#### Headers Required
+
+| Field           | Type   | Required | Description                              |
+|-----------------|--------|----------|------------------------------------------|
+| `Authorization` | String | Yes      | Bearer token received during login       |
+
+#### Responses
+
+| Status Code | Description                                                    |
+|------------|----------------------------------------------------------------|
+| `200`      | Success. Returns a JSON object with user profile information.   |
+| `401`      | Unauthorized. Token is missing or invalid.                      |
+| `500`      | Internal server error.                                         |
+
+#### Success Response
+
+```json
+{
+  "user": {
+    "_id": "64f1c2e5b5d6c2a1b8e4f123",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "johndoe@example.com"
+  }
+}
+```
+
+### POST `/user/logout`
+
+This endpoint is used to logout the current user. It invalidates the current session token.
+
+#### Headers Required
+
+| Field           | Type   | Required | Description                              |
+|-----------------|--------|----------|------------------------------------------|
+| `Authorization` | String | Yes      | Bearer token received during login       |
+
+#### Responses
+
+| Status Code | Description                                                    |
+|------------|----------------------------------------------------------------|
+| `200`      | Successfully logged out.                                        |
+| `401`      | Unauthorized. Token is missing or invalid.                      |
+| `500`      | Internal server error.                                         |
+
+#### Success Response
+
+```json
+{
+  "message": "Successfully logged out"
+}
+```
