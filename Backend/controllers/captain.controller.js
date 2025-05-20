@@ -19,7 +19,7 @@ module.exports.registerCaptain = async (req, res, next) => {
         return res.status(400).json({ message: "Captain already exists" });
     }
 
-    const hashPassword = await captainService.hashPassword(password);
+    const hashPassword = await captainModel.hashPassword(password);
 
     //create a captain
     const captain = await captainService.createCaptain({
@@ -30,7 +30,7 @@ module.exports.registerCaptain = async (req, res, next) => {
         color: vehicle.color, 
         plate: vehicle.plate, 
         capacity: vehicle.capacity, 
-        vehicleType: vehicle.vehicleType
+        type: vehicle.type
     });
 
     const token = await captain.generateAuthToken();

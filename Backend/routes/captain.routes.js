@@ -3,7 +3,7 @@ const router = express.Router();
 const { body } = require('express-validator');
 const captainController = require('../controllers/captain.controller');
 
-router.post{'/register', [
+router.post('/register', [
     body('fullname.firstname').notEmpty().withMessage('First name is required'),
     body('fullname.lastname').notEmpty().withMessage('Last name is required'),
     body('email').isEmail().withMessage('Please enter a valid email address'),
@@ -14,6 +14,6 @@ router.post{'/register', [
     body('vehicle.type').notEmpty().withMessage('Type is required'),
 ],
     captainController.registerCaptain
-}
+)
 
 module.exports = router;

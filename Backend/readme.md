@@ -1,6 +1,8 @@
 # Backend API Documentation
 
-## Endpoints
+# Endpoints
+
+## User
 
 ### POST `/user/register` Endpoint
 
@@ -180,3 +182,77 @@ This endpoint is used to logout the current user. It invalidates the current ses
   "message": "Successfully logged out"
 }
 ```
+
+---
+
+## Captain
+
+### POST `/captain/register`
+
+This endpoint is used to register a new captain.
+
+#### Request Body
+
+The request body must be sent in JSON format and include the following fields:
+
+| Field               | Type   | Required | Description                                   |
+|---------------------|--------|----------|-----------------------------------------------|
+| `fullname.firstname`| String | Yes      | The first name of the captain (min 3 characters).|
+| `fullname.lastname` | String | No       | The last name of the captain (min 3 characters). |
+| `email`            | String | Yes      | The email address of the captain (must be valid).|
+| `password`         | String | Yes      | The password (min 8 characters).              |
+| `vehicle.color`    | String | Yes      | The color of the vehicle (min 3 characters).  |
+| `vehicle.plate`    | String | Yes      | The unique plate number of the vehicle.       |
+| `vehicle.capacity` | Number | Yes      | The passenger capacity (min 1).               |
+| `vehicle.type`     | String | Yes      | Type of vehicle ("car", "motorcyle", "auto"). |
+
+#### Example Request Body
+
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "johndoe@example.com",
+  "password": "password123",
+  "vehicle": {
+    "color": "black",
+    "plate": "ABC123",
+    "capacity": 4,
+    "type": "car"
+  }
+}
+```
+
+#### Responses
+
+| Status Code | Description                                                                 |
+|-------------|-----------------------------------------------------------------------------|
+| `201`       | Captain successfully registered. Returns a JSON object with token and captain details. |
+| `400`       | Validation error or captain already exists.                                |
+| `500`       | Internal server error.                                                     |
+
+#### Success Response
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "captain": {
+    "_id": "64f1c2e5b5d6c2a1b8e4f123",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "johndoe@example.com",
+    "status": "inactive",
+    "vehicle": {
+      "color": "black",
+      "plate": "ABC123",
+      "capacity": 4,
+      "type": "car"
+    }
+  }
+}
+```
+
