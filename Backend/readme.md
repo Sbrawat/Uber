@@ -189,7 +189,10 @@ This endpoint is used to logout the current user. It invalidates the current ses
 
 ### POST `/captain/register`
 
-This endpoint is used to register a new captain.
+Register a new captain in the system.
+
+#### Request Headers
+Content-Type: application/json
 
 #### Request Body
 
@@ -211,16 +214,16 @@ The request body must be sent in JSON format and include the following fields:
 ```json
 {
   "fullname": {
-    "firstname": "John",
-    "lastname": "Doe"
+    "firstname": "John", // Required, minimum 3 characters
+    "lastname": "Doe"    // Required, minimum 3 characters
   },
   "email": "johndoe@example.com",
   "password": "password123",
   "vehicle": {
-    "color": "black",
-    "plate": "ABC123",
-    "capacity": 4,
-    "type": "car"
+    "color": "Black",    // Required, minimum 3 characters
+    "plate": "ABC-123",  // Required, must be unique
+    "capacity": 4,       // Required, minimum value: 1
+    "type": "car"        // Required, enum: "car", "motorcyle", "auto"
   }
 }
 ```
@@ -237,22 +240,144 @@ The request body must be sent in JSON format and include the following fields:
 
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "captain": {
-    "_id": "64f1c2e5b5d6c2a1b8e4f123",
-    "fullname": {
-      "firstname": "John",
-      "lastname": "Doe"
-    },
-    "email": "johndoe@example.com",
-    "status": "inactive",
-    "vehicle": {
-      "color": "black",
-      "plate": "ABC123",
-      "capacity": 4,
-      "type": "car"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", // JWT token valid for 24 hours
+    "captain": {
+        "_id": "64f1c2e5b5d6c2a1b8e4f123",
+        "fullname": {
+            "firstname": "John",
+            "lastname": "Doe"
+        },
+        "email": "john.doe@example.com",
+        "status": "inactive", // Default status for new captains
+        "vehicle": {
+            "color": "Black",
+            "plate": "ABC-123",
+            "capacity": 4,
+            "type": "car"
+        },
+        "location": {
+            "lat": null, // Initially null until captain updates location
+            "lng": null
+        }
     }
-  }
+}
+```
+
+##### Error (400 Bad Request)
+```json
+{
+    "errors": [
+        {
+            "msg": "First name is required",
+            "param": "fullname.firstname",
+            "location": "body"
+        }
+    ]
+}
+```
+
+### POST `/captain/login`
+
+#### Request Headers
+Content-Type: application/json
+
+#### Request Body
+```json
+{
+    "email": "john.doe@example.com",    // Required, must be valid email
+    "password": "password123"           // Required
+}
+```
+
+#### Responses
+
+| Status Code | Description                                                    |
+|------------|----------------------------------------------------------------|
+| `200`      | Successfully logged in. Returns token and captain details.      |
+| `401`      | Invalid email or password.                                     |
+| `500`      | Internal server error.                                         |
+
+##### Success Response (200 OK)
+```json
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "captain": {
+        "_id": "64f1c2e5b5d6c2a1b8e4f123",
+        "fullname": {
+            "firstname": "John",
+            "lastname": "Doe"
+        },
+        "email": "johndoe@example.com",
+        "status": "inactive",
+        "vehicle": {
+            "color": "Black",
+            "plate": "ABC-123",
+            "capacity": 4,
+            "type": "car"
+        }
+    }
+}
+```
+
+### GET `/captain/profile`
+
+#### Request Headers
+| Field           | Type   | Required | Description                              |
+|-----------------|--------|----------|------------------------------------------|
+| `Authorization` | String | Yes      | Bearer token received during login       |
+
+#### Responses
+
+| Status Code | Description                                                    |
+|------------|----------------------------------------------------------------|
+| `200`      | Success. Returns captain profile information.                   |
+| `401`      | Unauthorized. Token is missing or invalid.                      |
+| `500`      | Internal server error.                                         |
+
+##### Success Response (200 OK)
+```json
+{
+    "captain": {
+        "_id": "64f1c2e5b5d6c2a1b8e4f123",
+        "fullname": {
+            "firstname": "John",
+            "lastname": "Doe"
+        },
+        "email": "johndoe@example.com",
+        "status": "inactive",
+        "vehicle": {
+            "color": "Black",
+            "plate": "ABC-123",
+            "capacity": 4,
+            "type": "car"
+        },
+        "location": {
+            "lat": null,
+            "lng": null
+        }
+    }
+}
+```
+
+### POST `/captain/logout`
+
+#### Request Headers
+| Field           | Type   | Required | Description                              |
+|-----------------|--------|----------|------------------------------------------|
+| `Authorization` | String | Yes      | Bearer token received during login       |
+
+#### Responses
+
+| Status Code | Description                                                    |
+|------------|----------------------------------------------------------------|
+| `200`      | Successfully logged out.                                        |
+| `401`      | Unauthorized. Token is missing or invalid.                      |
+| `500`      | Internal server error.                                         |
+
+##### Success Response (200 OK)
+```json
+{
+    "message": "Logged out successfully"
 }
 ```
 
