@@ -34,7 +34,7 @@ router.get('/profile',
 );
 
 //Logout Route
-router.post('/logout', 
+router.get('/logout', 
     authMiddleware.authCaptain,
     captainController.logoutCaptain
 );

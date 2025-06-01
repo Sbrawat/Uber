@@ -359,7 +359,7 @@ Content-Type: application/json
 }
 ```
 
-### POST `/captain/logout`
+### GET `/captain/logout`
 
 #### Request Headers
 | Field           | Type   | Required | Description                              |

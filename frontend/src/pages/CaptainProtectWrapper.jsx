@@ -13,6 +13,7 @@ const CaptainProtectWrapper = ({children}) => {
     useEffect( () => {
         if(!token)
             { 
+                console.log(token);
                 navigate('/captain-login');
             }
         }, [ token ]);
@@ -24,8 +25,9 @@ const CaptainProtectWrapper = ({children}) => {
     }).then((response) => {
         if(response.status === 200)
         {
+            console.log('successful');
             const data = response.data;
-            setCaptain(data.captain);
+            // setCaptain(data.captain);
             setIsLoading(false);
         }
     }).catch( err => {
@@ -36,7 +38,6 @@ const CaptainProtectWrapper = ({children}) => {
 
     if (isLoading) {
         return (
-
             <div>Loading....</div>
         )
     }

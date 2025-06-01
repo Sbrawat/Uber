@@ -34,6 +34,13 @@ const UserProtectWrapper = ({children}) => {
         navigate('/login')
     })
 
+    if(isLoading)
+    {
+        return (
+            <div>Loading...</div>
+        )
+    }
+
     return (
         <>
             {children}
