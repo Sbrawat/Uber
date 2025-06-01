@@ -6,6 +6,9 @@ const blacklistTokenModel = require('../models/blacklistToken.model');
 // Register a new captain
 module.exports.registerCaptain = async (req, res, next) => {
 
+    // console.log("Registering Captain");
+    // console.log(req.body);
+
     // Validate the request body
     const errors = validationResult(req);
     if(!errors.isEmpty()) {

@@ -65,7 +65,7 @@ const captainSchema = new mongoose.Schema({
         },
         lng: {
             type: Number,
-        }   
+        }
     }
 })
 
