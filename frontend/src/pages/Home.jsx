@@ -172,7 +172,10 @@ const Home = () => {
         onClick={() => setVehiclePanelOpen(false)}
         className="fixed z-10 bottom-0 bg-white w-full px-3 py-6 pt-12 translate-y-full"
       >
-        <ConfirmVehicle setVehicleFound={setVehicleFound} setConfirmVehicleOpen={setConfirmVehicleOpen} />
+        <ConfirmVehicle
+          setVehicleFound={setVehicleFound}
+          setConfirmVehicleOpen={setConfirmVehicleOpen}
+        />
       </div>
       <div
         ref={vehicleFoundRef}

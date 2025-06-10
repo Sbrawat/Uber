@@ -3,7 +3,12 @@ import React from "react";
 const WaitingForDriver = (props) => {
   return (
     <div>
-      <h5 className="p-1 w-[93%] text-center absolute top-0" onClick={() => {props.setWaitingForDriver(false)}}>
+      <h5
+        className="p-1 w-[93%] text-center absolute top-0"
+        onClick={() => {
+          props.setWaitingForDriver(false);
+        }}
+      >
         <i className="ri-arrow-down-wide-line"></i>
       </h5>
       <div className="flex items-center justify-between">
@@ -13,9 +18,9 @@ const WaitingForDriver = (props) => {
           alt="Car image"
         />
         <div className="text-right">
-        <h2 className="text-lg font-medium">Sarthak</h2>
-        <h4 className="text-xl font-semibold -mt-1 -mb-1">MP04 AB 1234</h4>
-        <p className="text-sm text-gray-600">Maruti Suzuki Swift</p>
+          <h2 className="text-lg font-medium">Sarthak</h2>
+          <h4 className="text-xl font-semibold -mt-1 -mb-1">MP04 AB 1234</h4>
+          <p className="text-sm text-gray-600">Maruti Suzuki Swift</p>
         </div>
       </div>
 
