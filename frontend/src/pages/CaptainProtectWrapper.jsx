@@ -25,7 +25,7 @@ const CaptainProtectWrapper = ({children}) => {
     }).then((response) => {
         if(response.status === 200)
         {
-            console.log('successful');
+            // console.log('successful');
             const data = response.data;
             // setCaptain(data.captain);
             setIsLoading(false);

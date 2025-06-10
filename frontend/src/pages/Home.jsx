@@ -2,11 +2,11 @@ import react, { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import "remixicon/fonts/remixicon.css";
-import LocationSearch from "../../components/LocationSearch";
-import Vehicles from "../../components/Vehicles";
-import ConfirmVehicle from "../../components/ConfirmVehicle";
-import LookingForDriver from "../../components/LookingForDriver";
-import WaitingForDriver from "../../components/WaitingForDriver";
+import LocationSearch from "../components/LocationSearch";
+import Vehicles from "../components/Vehicles";
+import ConfirmVehicle from "../components/ConfirmVehicle";
+import LookingForDriver from "../components/LookingForDriver";
+import WaitingForDriver from "../components/WaitingForDriver";
 
 const Home = () => {
   //Refs
