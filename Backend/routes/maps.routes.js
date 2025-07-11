@@ -15,7 +15,7 @@ router.get(
 );
 
 router.get(
-  "get-distance-time",
+  "/get-distance-time",
   query("origin")
     .isString()
     .isLength({ min: 3 })
@@ -26,6 +26,13 @@ router.get(
     .withMessage("Origin Address is required."),
   authMiddleware.authUser,
   mapsController.getDistanceTime
+);
+
+router.get(
+  "/get-suggestions",
+  query("input").isString().isLength({ min: 3 }),
+  authMiddleware.authUser,
+  mapsController.getSuggestions
 );
 
 module.exports = router;

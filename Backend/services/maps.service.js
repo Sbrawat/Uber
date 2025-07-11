@@ -42,7 +42,35 @@ module.exports.getDistanceTime = async (origin, destination) => {
   try {
     const response = await axios.get(url);
     if (response.data.status === "OK") {
+      if (response.data.rows[0].elements[0] === "ZERO_RESULTS") {
+        throw new Error("No routes found");
+      }
       return response.data.rows[0].elements[0];
+    } else {
+      throw new Error("Unable to fetch distance and time");
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+module.exports.getSuggestions = async (input) => {
+  if (!input) {
+    throw new Error("query is required");
+  }
+
+  const apiKey = process.env.GOOGLE_MAPS_API;
+  const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
+    input
+  )}&key=${apiKey}`;
+
+  try {
+    const resposne = await axios.get(url);
+    if (response.data.status === "OK") {
+      return response.data.predictions;
+    } else {
+      throw new Error("Unable to fetch suggestions");
     }
   } catch (error) {
     console.error(error);
