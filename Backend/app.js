@@ -13,6 +13,7 @@ const userRoutes = require("./routes/user.routes");
 const captainRoutes = require("./routes/captain.routes");
 const { body } = require("express-validator");
 const mapsRoutes = require("./routes/maps.routes");
+const mapsRoutes = require("./routes/ride.routes");
 
 // Connected to the database
 connectToDB();
@@ -30,5 +31,6 @@ app.get("/", (req, res) => {
 app.use("/user", userRoutes);
 app.use("/captain", captainRoutes);
 app.use("/maps", mapsRoutes);
+app.use("/ride", rideRoutes);
 
 module.exports = app;

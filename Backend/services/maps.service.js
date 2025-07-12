@@ -66,7 +66,7 @@ module.exports.getSuggestions = async (input) => {
   )}&key=${apiKey}`;
 
   try {
-    const resposne = await axios.get(url);
+    const response = await axios.get(url);
     if (response.data.status === "OK") {
       return response.data.predictions;
     } else {
