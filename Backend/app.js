@@ -13,7 +13,7 @@ const userRoutes = require("./routes/user.routes");
 const captainRoutes = require("./routes/captain.routes");
 const { body } = require("express-validator");
 const mapsRoutes = require("./routes/maps.routes");
-const mapsRoutes = require("./routes/ride.routes");
+const rideRoutes = require("./routes/ride.routes");
 
 // Connected to the database
 connectToDB();
