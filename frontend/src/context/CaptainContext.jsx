@@ -6,6 +6,7 @@ const CaptainContext = ({ children }) => {
   const [captain, setCaptain] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [socket, setSocket] = useState(null);
 
   const updateCaptain = (captainData) => {
     setCaptain(captainData);
@@ -19,6 +20,8 @@ const CaptainContext = ({ children }) => {
     error,
     setError,
     updateCaptain,
+    socket,
+    setSocket,
   };
 
   return (

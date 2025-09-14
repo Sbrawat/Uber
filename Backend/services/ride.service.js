@@ -96,11 +96,13 @@ module.exports.confirmRide = async (rideId, captainId) => {
     },
     {
       status: "accepted",
-      captain: captainId,
     }
   );
 
-  const ride = await rideModel.findById(rideId).populate("user");
+  const ride = await rideModel
+    .findById(rideId)
+    .populate("user")
+    .populate("captain");
 
   if (!ride) {
     throw new Error("Ride not found");

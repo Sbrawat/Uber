@@ -44,10 +44,11 @@ const Home = () => {
 
   useEffect(() => {
     socket.emit("join", { userType: "user", userId: user._id });
-  }, [user]);
+  });
 
   socket.on("ride-confirmed", (ride) => {
     console.log("ride found");
+    setRide(ride);
     setVehicleFound(false);
     setWaitingForDriver(true);
   });
@@ -306,7 +307,10 @@ const Home = () => {
         ref={waitingForDriverRef}
         className="fixed z-10 bottom-0 bg-white w-full px-3 py-6 pt-12 translate-y-full"
       >
-        <WaitingForDriver setWaitingForDriver={setWaitingForDriver} />
+        <WaitingForDriver
+          setWaitingForDriver={setWaitingForDriver}
+          ride={ride}
+        />
       </div>
     </div>
   );

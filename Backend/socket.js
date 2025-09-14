@@ -15,33 +15,16 @@ function initializeSocket(server) {
 
   io.on("connection", (socket) => {
     socket.on("join", async (data) => {
-      try {
-        const { userId, userType } = data;
+      const { userId, userType } = data;
 
-        if (userType === "user") {
-          console.log(`User connected: ${socket.id} ${userId}`);
-          const updatedUser = await userModel.findByIdAndUpdate(
-            userId,
-            { socketId: socket.id },
-            { new: true } // This returns the updated document
-          );
-          if (!updatedUser) {
-            console.log(
-              `Failed to update user ${userId} with socket ${socket.id}`
-            );
-            return;
-          }
-          console.log("Updated user:", updatedUser);
-        } else if (userType === "captain") {
-          console.log(`Captain connected: ${socket.id}`);
-          const u1 = await captainModel.findByIdAndUpdate(userId, {
-            socketId: socket.id,
-          });
-          console.log(u1);
-          console.log(u1["socketId"]);
-        }
-      } catch (error) {
-        console.error("Error in join event:", error);
+      if (userType === "user") {
+        await userModel.findByIdAndUpdate(userId, {
+          socketId: socket.id,
+        });
+      } else if (userType === "captain") {
+        await captainModel.findByIdAndUpdate(userId, {
+          socketId: socket.id,
+        });
       }
     });
 
