@@ -1,4 +1,5 @@
 const axios = require("axios");
+const captainModel = require("../models/captain.model");
 
 module.exports.getAddressCoordinate = async (address) => {
   if (!address) {
@@ -14,9 +15,8 @@ module.exports.getAddressCoordinate = async (address) => {
     const response = await axios.get(url);
     if (response.data.status === "OK") {
       const location = response.data.results[0].geometry.location;
-
       return {
-        ltd: location.lat,
+        lat: location.lat,
         lng: location.lng,
       };
     } else {
@@ -76,4 +76,30 @@ module.exports.getSuggestions = async (input) => {
     console.error(error);
     throw error;
   }
+};
+
+module.exports.getCaptainsInTheRadius = (lat, lng, radius) => {
+  if (!lat || !lng || !radius) {
+    throw new Error("Latitude, longitude and radius are required");
+  }
+
+  if (isNaN(lat) || isNaN(lng) || isNaN(radius)) {
+    throw new Error("Invalid coordinates or radius");
+  }
+
+  // Convert lat/lng to numbers to ensure correct type
+  const latitude = parseFloat(lat);
+  const longitude = parseFloat(lng);
+  const radiusInKm = parseFloat(radius);
+
+  const captains = captainModel.find({
+    location: {
+      $geoWithin: {
+        $centerSphere: [[latitude, longitude], radiusInKm / 6378.1], // Earth's radius in KM
+      },
+    },
+    // status: "active", // Only find active captains
+  });
+
+  return captains;
 };

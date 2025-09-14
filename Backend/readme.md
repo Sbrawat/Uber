@@ -12,12 +12,12 @@ This endpoint is used to register a new user.
 
 The request body must be sent in JSON format and include the following fields:
 
-| Field               | Type   | Required | Description                                   |
-|---------------------|--------|----------|-----------------------------------------------|
-| `fullname.firstname`| String | Yes      | The first name of the user (min 3 characters).|
-| `fullname.lastname` | String | No       | The last name of the user (min 3 characters). |
-| `email`             | String | Yes      | The email address of the user (must be valid).|
-| `password`          | String | Yes      | The password for the user (min 6 characters). |
+| Field                | Type   | Required | Description                                    |
+| -------------------- | ------ | -------- | ---------------------------------------------- |
+| `fullname.firstname` | String | Yes      | The first name of the user (min 3 characters). |
+| `fullname.lastname`  | String | No       | The last name of the user (min 3 characters).  |
+| `email`              | String | Yes      | The email address of the user (must be valid). |
+| `password`           | String | Yes      | The password for the user (min 6 characters).  |
 
 #### Example Request Body
 
@@ -31,14 +31,14 @@ The request body must be sent in JSON format and include the following fields:
   "password": "password123"
 }
 ```
+
 # Responses
 
-
-| Status Code |	Description |
-|-------------|-------------|
-| `201` |	User successfully registered. Returns a JSON object with a token and user. |
-| `400` |	Validation error. Returns a JSON object with an array of validation errors. |
-| `500`	| Internal server error. |
+| Status Code | Description                                                                 |
+| ----------- | --------------------------------------------------------------------------- |
+| `201`       | User successfully registered. Returns a JSON object with a token and user.  |
+| `400`       | Validation error. Returns a JSON object with an array of validation errors. |
+| `500`       | Internal server error.                                                      |
 
 ```json
 {
@@ -71,7 +71,7 @@ The request body must be sent in JSON format and include the following fields:
 }
 ```
 
-### POST `/user/login` 
+### POST `/user/login`
 
 This endpoint is used to log in an existing user.
 
@@ -79,10 +79,10 @@ This endpoint is used to log in an existing user.
 
 The request body must be sent in JSON format and include the following fields:
 
-| Field               | Type   | Required | Description                                   |
-|---------------------|--------|----------|-----------------------------------------------|
-| `email`             | String | Yes      | The email address of the user (must be valid).|
-| `password`          | String | Yes      | The password for the user (min 6 characters). |
+| Field      | Type   | Required | Description                                    |
+| ---------- | ------ | -------- | ---------------------------------------------- |
+| `email`    | String | Yes      | The email address of the user (must be valid). |
+| `password` | String | Yes      | The password for the user (min 6 characters).  |
 
 #### Example Request Body
 
@@ -95,12 +95,12 @@ The request body must be sent in JSON format and include the following fields:
 
 ### Responses
 
-| Status Code |	Description |
-|-------------|-------------|
-| `200` |	User successfully logged in. Returns a JSON object with a token and user. |
-| `400` |	Validation error. Returns a JSON object with an array of validation errors. |
-| `401`	| Invalid email or password. |
-| `500`	| Internal server error. |
+| Status Code | Description                                                                 |
+| ----------- | --------------------------------------------------------------------------- |
+| `200`       | User successfully logged in. Returns a JSON object with a token and user.   |
+| `400`       | Validation error. Returns a JSON object with an array of validation errors. |
+| `401`       | Invalid email or password.                                                  |
+| `500`       | Internal server error.                                                      |
 
 ### Success Response
 
@@ -117,6 +117,7 @@ The request body must be sent in JSON format and include the following fields:
   }
 }
 ```
+
 ### Example Error Response
 
 ```json
@@ -124,23 +125,24 @@ The request body must be sent in JSON format and include the following fields:
   "message": "Invalid email or password"
 }
 ```
+
 ### GET `/user/profile`
 
 This endpoint is used to retrieve the authenticated user's profile information.
 
 #### Headers Required
 
-| Field           | Type   | Required | Description                              |
-|-----------------|--------|----------|------------------------------------------|
-| `Authorization` | String | Yes      | Bearer token received during login       |
+| Field           | Type   | Required | Description                        |
+| --------------- | ------ | -------- | ---------------------------------- |
+| `Authorization` | String | Yes      | Bearer token received during login |
 
 #### Responses
 
-| Status Code | Description                                                    |
-|------------|----------------------------------------------------------------|
-| `200`      | Success. Returns a JSON object with user profile information.   |
-| `401`      | Unauthorized. Token is missing or invalid.                      |
-| `500`      | Internal server error.                                         |
+| Status Code | Description                                                   |
+| ----------- | ------------------------------------------------------------- |
+| `200`       | Success. Returns a JSON object with user profile information. |
+| `401`       | Unauthorized. Token is missing or invalid.                    |
+| `500`       | Internal server error.                                        |
 
 #### Success Response
 
@@ -163,17 +165,17 @@ This endpoint is used to logout the current user. It invalidates the current ses
 
 #### Headers Required
 
-| Field           | Type   | Required | Description                              |
-|-----------------|--------|----------|------------------------------------------|
-| `Authorization` | String | Yes      | Bearer token received during login       |
+| Field           | Type   | Required | Description                        |
+| --------------- | ------ | -------- | ---------------------------------- |
+| `Authorization` | String | Yes      | Bearer token received during login |
 
 #### Responses
 
-| Status Code | Description                                                    |
-|------------|----------------------------------------------------------------|
-| `200`      | Successfully logged out.                                        |
-| `401`      | Unauthorized. Token is missing or invalid.                      |
-| `500`      | Internal server error.                                         |
+| Status Code | Description                                |
+| ----------- | ------------------------------------------ |
+| `200`       | Successfully logged out.                   |
+| `401`       | Unauthorized. Token is missing or invalid. |
+| `500`       | Internal server error.                     |
 
 #### Success Response
 
@@ -192,22 +194,23 @@ This endpoint is used to logout the current user. It invalidates the current ses
 Register a new captain in the system.
 
 #### Request Headers
+
 Content-Type: application/json
 
 #### Request Body
 
 The request body must be sent in JSON format and include the following fields:
 
-| Field               | Type   | Required | Description                                   |
-|---------------------|--------|----------|-----------------------------------------------|
-| `fullname.firstname`| String | Yes      | The first name of the captain (min 3 characters).|
-| `fullname.lastname` | String | No       | The last name of the captain (min 3 characters). |
-| `email`            | String | Yes      | The email address of the captain (must be valid).|
-| `password`         | String | Yes      | The password (min 8 characters).              |
-| `vehicle.color`    | String | Yes      | The color of the vehicle (min 3 characters).  |
-| `vehicle.plate`    | String | Yes      | The unique plate number of the vehicle.       |
-| `vehicle.capacity` | Number | Yes      | The passenger capacity (min 1).               |
-| `vehicle.type`     | String | Yes      | Type of vehicle ("car", "motorcyle", "auto"). |
+| Field                | Type   | Required | Description                                       |
+| -------------------- | ------ | -------- | ------------------------------------------------- |
+| `fullname.firstname` | String | Yes      | The first name of the captain (min 3 characters). |
+| `fullname.lastname`  | String | No       | The last name of the captain (min 3 characters).  |
+| `email`              | String | Yes      | The email address of the captain (must be valid). |
+| `password`           | String | Yes      | The password (min 8 characters).                  |
+| `vehicle.color`      | String | Yes      | The color of the vehicle (min 3 characters).      |
+| `vehicle.plate`      | String | Yes      | The unique plate number of the vehicle.           |
+| `vehicle.capacity`   | Number | Yes      | The passenger capacity (min 1).                   |
+| `vehicle.type`       | String | Yes      | Type of vehicle ("car", "motorcyle", "auto").     |
 
 #### Example Request Body
 
@@ -215,169 +218,224 @@ The request body must be sent in JSON format and include the following fields:
 {
   "fullname": {
     "firstname": "John", // Required, minimum 3 characters
-    "lastname": "Doe"    // Required, minimum 3 characters
+    "lastname": "Doe" // Required, minimum 3 characters
   },
   "email": "johndoe@example.com",
   "password": "password123",
   "vehicle": {
-    "color": "Black",    // Required, minimum 3 characters
-    "plate": "ABC-123",  // Required, must be unique
-    "capacity": 4,       // Required, minimum value: 1
-    "type": "car"        // Required, enum: "car", "motorcyle", "auto"
+    "color": "Black", // Required, minimum 3 characters
+    "plate": "ABC-123", // Required, must be unique
+    "capacity": 4, // Required, minimum value: 1
+    "type": "car" // Required, enum: "car", "motorcyle", "auto"
   }
 }
 ```
 
 #### Responses
 
-| Status Code | Description                                                                 |
-|-------------|-----------------------------------------------------------------------------|
+| Status Code | Description                                                                            |
+| ----------- | -------------------------------------------------------------------------------------- |
 | `201`       | Captain successfully registered. Returns a JSON object with token and captain details. |
-| `400`       | Validation error or captain already exists.                                |
-| `500`       | Internal server error.                                                     |
+| `400`       | Validation error or captain already exists.                                            |
+| `500`       | Internal server error.                                                                 |
 
 #### Success Response
 
 ```json
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", // JWT token valid for 24 hours
-    "captain": {
-        "_id": "64f1c2e5b5d6c2a1b8e4f123",
-        "fullname": {
-            "firstname": "John",
-            "lastname": "Doe"
-        },
-        "email": "john.doe@example.com",
-        "status": "inactive", // Default status for new captains
-        "vehicle": {
-            "color": "Black",
-            "plate": "ABC-123",
-            "capacity": 4,
-            "type": "car"
-        },
-        "location": {
-            "lat": null, // Initially null until captain updates location
-            "lng": null
-        }
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", // JWT token valid for 24 hours
+  "captain": {
+    "_id": "64f1c2e5b5d6c2a1b8e4f123",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "status": "inactive", // Default status for new captains
+    "vehicle": {
+      "color": "Black",
+      "plate": "ABC-123",
+      "capacity": 4,
+      "type": "car"
+    },
+    "location": {
+      "lat": null, // Initially null until captain updates location
+      "lng": null
     }
+  }
 }
 ```
 
 ##### Error (400 Bad Request)
+
 ```json
 {
-    "errors": [
-        {
-            "msg": "First name is required",
-            "param": "fullname.firstname",
-            "location": "body"
-        }
-    ]
+  "errors": [
+    {
+      "msg": "First name is required",
+      "param": "fullname.firstname",
+      "location": "body"
+    }
+  ]
 }
 ```
 
 ### POST `/captain/login`
 
 #### Request Headers
+
 Content-Type: application/json
 
 #### Request Body
+
 ```json
 {
-    "email": "john.doe@example.com",    // Required, must be valid email
-    "password": "password123"           // Required
+  "email": "john.doe@example.com", // Required, must be valid email
+  "password": "password123" // Required
 }
 ```
 
 #### Responses
 
-| Status Code | Description                                                    |
-|------------|----------------------------------------------------------------|
-| `200`      | Successfully logged in. Returns token and captain details.      |
-| `401`      | Invalid email or password.                                     |
-| `500`      | Internal server error.                                         |
+| Status Code | Description                                                |
+| ----------- | ---------------------------------------------------------- |
+| `200`       | Successfully logged in. Returns token and captain details. |
+| `401`       | Invalid email or password.                                 |
+| `500`       | Internal server error.                                     |
 
 ##### Success Response (200 OK)
+
 ```json
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "captain": {
-        "_id": "64f1c2e5b5d6c2a1b8e4f123",
-        "fullname": {
-            "firstname": "John",
-            "lastname": "Doe"
-        },
-        "email": "johndoe@example.com",
-        "status": "inactive",
-        "vehicle": {
-            "color": "Black",
-            "plate": "ABC-123",
-            "capacity": 4,
-            "type": "car"
-        }
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "captain": {
+    "_id": "64f1c2e5b5d6c2a1b8e4f123",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "johndoe@example.com",
+    "status": "inactive",
+    "vehicle": {
+      "color": "Black",
+      "plate": "ABC-123",
+      "capacity": 4,
+      "type": "car"
     }
+  }
 }
 ```
 
 ### GET `/captain/profile`
 
 #### Request Headers
-| Field           | Type   | Required | Description                              |
-|-----------------|--------|----------|------------------------------------------|
-| `Authorization` | String | Yes      | Bearer token received during login       |
+
+| Field           | Type   | Required | Description                        |
+| --------------- | ------ | -------- | ---------------------------------- |
+| `Authorization` | String | Yes      | Bearer token received during login |
 
 #### Responses
 
-| Status Code | Description                                                    |
-|------------|----------------------------------------------------------------|
-| `200`      | Success. Returns captain profile information.                   |
-| `401`      | Unauthorized. Token is missing or invalid.                      |
-| `500`      | Internal server error.                                         |
+| Status Code | Description                                   |
+| ----------- | --------------------------------------------- |
+| `200`       | Success. Returns captain profile information. |
+| `401`       | Unauthorized. Token is missing or invalid.    |
+| `500`       | Internal server error.                        |
 
 ##### Success Response (200 OK)
+
 ```json
 {
-    "captain": {
-        "_id": "64f1c2e5b5d6c2a1b8e4f123",
-        "fullname": {
-            "firstname": "John",
-            "lastname": "Doe"
-        },
-        "email": "johndoe@example.com",
-        "status": "inactive",
-        "vehicle": {
-            "color": "Black",
-            "plate": "ABC-123",
-            "capacity": 4,
-            "type": "car"
-        },
-        "location": {
-            "lat": null,
-            "lng": null
-        }
+  "captain": {
+    "_id": "64f1c2e5b5d6c2a1b8e4f123",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "johndoe@example.com",
+    "status": "inactive",
+    "vehicle": {
+      "color": "Black",
+      "plate": "ABC-123",
+      "capacity": 4,
+      "type": "car"
+    },
+    "location": {
+      "lat": null,
+      "lng": null
     }
+  }
 }
 ```
 
 ### GET `/captain/logout`
 
 #### Request Headers
-| Field           | Type   | Required | Description                              |
-|-----------------|--------|----------|------------------------------------------|
-| `Authorization` | String | Yes      | Bearer token received during login       |
+
+| Field           | Type   | Required | Description                        |
+| --------------- | ------ | -------- | ---------------------------------- |
+| `Authorization` | String | Yes      | Bearer token received during login |
 
 #### Responses
 
-| Status Code | Description                                                    |
-|------------|----------------------------------------------------------------|
-| `200`      | Successfully logged out.                                        |
-| `401`      | Unauthorized. Token is missing or invalid.                      |
-| `500`      | Internal server error.                                         |
+| Status Code | Description                                |
+| ----------- | ------------------------------------------ |
+| `200`       | Successfully logged out.                   |
+| `401`       | Unauthorized. Token is missing or invalid. |
+| `500`       | Internal server error.                     |
 
 ##### Success Response (200 OK)
+
 ```json
 {
-    "message": "Logged out successfully"
+  "message": "Logged out successfully"
 }
 ```
 
+## Ride
+
+### GET `/ride/get-fare`
+
+Get estimated fare for a ride between two locations.
+
+#### Request Headers
+
+| Field           | Type   | Required | Description                        |
+| --------------- | ------ | -------- | ---------------------------------- |
+| `Authorization` | String | Yes      | Bearer token received during login |
+
+#### Query Parameters
+
+| Parameter     | Type   | Required | Description                      |
+| ------------- | ------ | -------- | -------------------------------- |
+| `pickup`      | String | Yes      | The pickup location address      |
+| `destination` | String | Yes      | The destination location address |
+
+#### Responses
+
+| Status Code | Description                                             |
+| ----------- | ------------------------------------------------------- |
+| `200`       | Success. Returns estimated fares for all vehicle types. |
+| `400`       | Invalid or missing parameters.                          |
+| `401`       | Unauthorized. Token is missing or invalid.              |
+| `500`       | Internal server error.                                  |
+
+#### Success Response
+
+```json
+{
+    "auto": 192.50,    // Fare for auto rickshaw
+    "car": 350.75,     // Fare for car
+    "moto": 145.25     // Fare for motorcycle
+}
+
+{
+    "errors": [
+        {
+            "msg": "Invalid pickup address",
+            "param": "pickup",
+            "location": "query"
+        }
+    ]
+}
+```
