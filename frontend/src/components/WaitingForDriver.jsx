@@ -19,10 +19,11 @@ const WaitingForDriver = (props) => {
         />
         <div className="text-right">
           <h2 className="text-xl font-medium">
-            {props.ride?.captain.fullname.firstname}
+            {/* {props.ride?.captain.fullname.firstname} */}
           </h2>
           <h4 className="text-xl font-semibold -mt-1 -mb-1">MP04 AB 1234</h4>
           <p className="text-sm text-gray-600">Maruti Suzuki Swift</p>
+          <h1 className="text-lg font-semibold">{props.ride?.otp}</h1>
         </div>
       </div>
 

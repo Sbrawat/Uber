@@ -1,12 +1,15 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import FinishRide from "../components/FinishRide";
+import LiveTracking from "../components/LiveTracking";
 
 const CaptainRiding = () => {
   const finishRideRef = useRef(null);
   const [finishRidePanel, setFinishRidePanel] = useState(false);
+  const location = useLocation();
+  const rideData = location.state?.ride;
 
   useGSAP(() => {
     if (finishRidePanel) {
@@ -32,11 +35,7 @@ const CaptainRiding = () => {
         </Link>
       </div>
       <div className="h-4/5">
-        <img
-          className="h-full w-full obj-cover"
-          src="https://www.medianama.com/wp-content/uploads/2018/06/Screenshot_20180619-112715.png.png"
-          alt="Map"
-        />
+        <LiveTracking></LiveTracking>
       </div>
       <div
         onClick={() => {
@@ -56,7 +55,10 @@ const CaptainRiding = () => {
         ref={finishRideRef}
         className="fixed z-10 h-[85%] bottom-0 translate-y-full bg-white w-full px-3 py-10 pt-12 "
       >
-        <FinishRide setFinishRidePanel={setFinishRidePanel} />
+        <FinishRide
+          rideData={rideData}
+          setFinishRidePanel={setFinishRidePanel}
+        />
       </div>
     </div>
   );

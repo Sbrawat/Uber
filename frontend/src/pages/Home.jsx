@@ -10,6 +10,8 @@ import WaitingForDriver from "../components/WaitingForDriver";
 import axios from "axios";
 import { SocketContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import LiveTracking from "../components/LiveTracking";
 
 const Home = () => {
   //Refs
@@ -42,15 +44,21 @@ const Home = () => {
   const { socket } = useContext(SocketContext);
   const { user } = useContext(UserDataContext);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     socket.emit("join", { userType: "user", userId: user._id });
   });
 
-  socket.on("ride-confirmed", (ride) => {
-    console.log("ride found");
-    setRide(ride);
+  socket.on("ride-confirmed", (rideData) => {
+    setRide(rideData);
     setVehicleFound(false);
     setWaitingForDriver(true);
+  });
+
+  socket.on("ride-started", (ride) => {
+    setWaitingForDriver(false);
+    navigate("/riding", { state: { ride } });
   });
   const handlePickupChange = async (e) => {
     setPickup(e.target.value);
@@ -197,12 +205,9 @@ const Home = () => {
         src={"./src/assets/uber.png"}
         alt="Uber Image"
       />
-      <div className="h-screen w-screen">
-        <img
-          className="h-screen w-screen obj-cover"
-          src="https://www.medianama.com/wp-content/uploads/2018/06/Screenshot_20180619-112715.png.png"
-          alt="Map"
-        />
+
+      <div className="h-screen w-screen ">
+        <LiveTracking></LiveTracking>
       </div>
       <div className="w-full h-screen flex flex-col justify-end absolute top-0">
         <div className="h-[30%] p-5 bg-white relative">

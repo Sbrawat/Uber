@@ -8,6 +8,7 @@ import ConfirmRidePopUp from "../components/ConfirmRidePopUp";
 import { SocketContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CaptainContext";
 import axios from "axios";
+import LiveTracking from "../components/LiveTracking";
 
 const CaptainHome = () => {
   //Refs
@@ -63,8 +64,7 @@ const CaptainHome = () => {
     );
 
     setRidePopUp(false);
-    // setConfirmRidePopUp(true);
-    console.log(response.status);
+    setConfirmRidePopUp(true);
   }
 
   useGSAP(() => {
@@ -103,11 +103,7 @@ const CaptainHome = () => {
         </Link>
       </div>
       <div className="h-3/5">
-        <img
-          className="h-full w-full obj-cover"
-          src="https://www.medianama.com/wp-content/uploads/2018/06/Screenshot_20180619-112715.png.png"
-          alt="Map"
-        />
+        <LiveTracking></LiveTracking>
       </div>
       <div className="h-2/5 p-6">{<CaptainDetails />}</div>
       <div
@@ -128,6 +124,7 @@ const CaptainHome = () => {
         <ConfirmRidePopUp
           setConfirmRidePopUp={setConfirmRidePopUp}
           setRidePopUp={setRidePopUp}
+          ride={ride}
         />
       </div>
     </div>
